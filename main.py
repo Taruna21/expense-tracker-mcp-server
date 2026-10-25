@@ -2,8 +2,9 @@ import random
 import os
 import sqlite3
 from fastmcp import FastMCP
+import tempfile
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "expenses.db")
+DB_PATH = os.path.join(tempfile.gettempdir(), "expenses.db")
 mcp = FastMCP(
     name="Expense Tracker",
     instructions="A tool to track expenses and perform calculations.",
@@ -367,4 +368,4 @@ def get_expenses_summary_by_amount_range(min_amount: float, max_amount: float):
 
 
 if __name__ == "__main__":
-    mcp.run()
+    mcp.run(transport="http", host="0.0.0.0", port=8000)
