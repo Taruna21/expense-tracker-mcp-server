@@ -1,6 +1,6 @@
-import random
 import os
 import sqlite3
+import asyncio
 from fastmcp import FastMCP
 import tempfile
 
@@ -27,8 +27,7 @@ async def init_db():
     conn.commit()
     conn.close()
 
-init_db()
-
+asyncio.run(init_db())
 
 
 @mcp.tool
