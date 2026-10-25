@@ -10,7 +10,7 @@ mcp = FastMCP(
     instructions="A tool to track expenses and perform calculations.",
 )
 
-def init_db():
+async def init_db():
     """Initialize the SQLite database."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -32,7 +32,7 @@ init_db()
 
 
 @mcp.tool
-def add_expense(description: str, amount: float, date: str):
+async def add_expense(description: str, amount: float, date: str):
     """Add a new expense to the database."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -45,7 +45,7 @@ def add_expense(description: str, amount: float, date: str):
     return f"Expense '{description}' of amount {amount} added on {date}."
 
 @mcp.tool
-def get_expenses():
+async def get_expenses():
     """Retrieve all expenses from the database."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -55,7 +55,7 @@ def get_expenses():
     return expenses
 
 @mcp.tool
-def calculate_total_expenses():
+async def calculate_total_expenses():
     """Calculate the total amount of expenses."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -65,7 +65,7 @@ def calculate_total_expenses():
     return total if total is not None else 0.0
 
 @mcp.tool
-def calculate_average_expense():
+async def calculate_average_expense():
     """Calculate the average expense amount."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -75,7 +75,7 @@ def calculate_average_expense():
     return average if average is not None else 0.0
 
 @mcp.tool
-def list_expenses_by_date(date: str):
+async def list_expenses_by_date(date: str):
     """List all expenses for a specific date."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -85,7 +85,7 @@ def list_expenses_by_date(date: str):
     return expenses
 
 @mcp.tool
-def delete_expense(expense_id: int):
+async def delete_expense(expense_id: int):
     """Delete an expense by its ID."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -95,7 +95,7 @@ def delete_expense(expense_id: int):
     return f"Expense with ID {expense_id} has been deleted."
 
 @mcp.tool
-def update_expense(expense_id: int, description: str = None, amount: float = None, date: str = None):
+async def update_expense(expense_id: int, description: str = None, amount: float = None, date: str = None):
     """Update an existing expense."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -125,7 +125,7 @@ def update_expense(expense_id: int, description: str = None, amount: float = Non
 
 
 @mcp.tool
-def get_expense_by_id(expense_id: int):
+async def get_expense_by_id(expense_id: int):
     """Retrieve a specific expense by its ID."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -135,7 +135,7 @@ def get_expense_by_id(expense_id: int):
     return expense
 
 @mcp.tool
-def get_expenses_by_description(description: str):
+async def get_expenses_by_description(description: str):
     """Retrieve expenses that match a specific description."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -145,7 +145,7 @@ def get_expenses_by_description(description: str):
     return expenses
 
 @mcp.tool
-def get_expenses_by_amount_range(min_amount: float, max_amount: float):
+async def get_expenses_by_amount_range(min_amount: float, max_amount: float):
     """Retrieve expenses within a specific amount range."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -155,7 +155,7 @@ def get_expenses_by_amount_range(min_amount: float, max_amount: float):
     return expenses
 
 @mcp.tool
-def get_expenses_by_date_range(start_date: str, end_date: str):
+async def get_expenses_by_date_range(start_date: str, end_date: str):
     """Retrieve expenses within a specific date range."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -165,7 +165,7 @@ def get_expenses_by_date_range(start_date: str, end_date: str):
     return expenses
 
 @mcp.tool
-def get_expense_statistics():
+async def get_expense_statistics():
     """Retrieve statistics about the expenses."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -184,7 +184,7 @@ def get_expense_statistics():
     }
 
 @mcp.tool
-def clear_all_expenses():
+async def clear_all_expenses():
     """Delete all expenses from the database."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -194,7 +194,7 @@ def clear_all_expenses():
     return "All expenses have been cleared."
 
 @mcp.tool
-def export_expenses_to_csv(file_path: str):
+async def export_expenses_to_csv(file_path: str):
     """Export all expenses to a CSV file."""
     import csv
     
@@ -213,7 +213,7 @@ def export_expenses_to_csv(file_path: str):
 
 
 @mcp.tool
-def import_expenses_from_csv(file_path: str):
+async def import_expenses_from_csv(file_path: str):
     """Import expenses from a CSV file."""
     import csv
     
@@ -252,7 +252,7 @@ def get_expenses_summary_by_month():
     return summary
 
 @mcp.tool
-def get_expenses_summary_by_category():
+async def get_expenses_summary_by_category():
     """Retrieve a summary of expenses grouped by category."""
     # Assuming there's a 'category' column in the expenses table
     conn = sqlite3.connect(DB_PATH)
@@ -271,7 +271,7 @@ def get_expenses_summary_by_category():
     return summary
 
 @mcp.tool
-def get_expenses_summary_by_year():
+async def get_expenses_summary_by_year():
     """Retrieve a summary of expenses grouped by year."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -289,7 +289,7 @@ def get_expenses_summary_by_year():
     return summary
 
 @mcp.tool
-def get_expenses_summary_by_week():
+async def get_expenses_summary_by_week():
     """Retrieve a summary of expenses grouped by week."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -307,7 +307,7 @@ def get_expenses_summary_by_week():
     return summary
 
 @mcp.tool
-def get_expenses_summary_by_day():
+async def get_expenses_summary_by_day():
     """Retrieve a summary of expenses grouped by day."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -325,7 +325,7 @@ def get_expenses_summary_by_day():
     return summary
 
 @mcp.tool
-def get_expenses_summary_by_description():
+async def get_expenses_summary_by_description():
     """Retrieve a summary of expenses grouped by description."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -343,7 +343,7 @@ def get_expenses_summary_by_description():
     return summary
 
 @mcp.tool
-def get_expenses_summary_by_amount_range(min_amount: float, max_amount: float):
+async def get_expenses_summary_by_amount_range(min_amount: float, max_amount: float):
     """Retrieve a summary of expenses grouped by amount range."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
